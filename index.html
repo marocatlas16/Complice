@@ -60,7 +60,11 @@ h2{margin:4px 0 18px}.match{background:linear-gradient(145deg,#27151d,#151515);b
 
 <nav><button id="n1" class="active" onclick="show('discover')">🔥</button><button onclick="show('messages')">💬</button><button onclick="show('profile')">♡</button></nav>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+const SUPABASE_URL = "https://ftpqszyhimmhojyvesc.supabase.co";
+const SUPABASE_KEY = "sb_publishable_r_KV_U-CyOMzY8J258XvvA_0LupfDSl";
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const people=[
 {name:'Emma, 27',distance:'Marseille · 3 km',bio:'J’aime les voyages, la musique et les bons restaurants 🍹✈️🎵',photo:'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80'},
 {name:'Chloé, 30',distance:'Marseille · 5 km',bio:'Sport, voyages et soirées entre amis 🌊🏃‍♀️',photo:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80'},
