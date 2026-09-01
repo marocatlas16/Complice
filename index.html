@@ -70,6 +70,23 @@ const people=[
 {name:'Chloé, 30',distance:'Marseille · 5 km',bio:'Sport, voyages et soirées entre amis 🌊🏃‍♀️',photo:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80'},
 {name:'Laura, 28',distance:'Aubagne · 12 km',bio:'Passionnée de cuisine et de nature 🌿🍝',photo:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80'}];
 let i=0;
+  async function loadProfiles(){
+  const {data,error}=await supabase.from('profiles').select('id,first_name,last_name,city');
+  if(error){console.error(error);return;}
+  people.length=0;
+  for(const p of data||[]){
+    const {data:photos}=await supabase.from('profile_photos').select('photo_url').eq('user_id',p.id).order('display_order');
+    people.push({
+      name:p.first_name||'',
+      distance:p.city||'',
+      bio:'',
+      photo:photos?.[0]?.photo_url||''
+    });
+  }
+  i=0;
+  render();
+}
+loadProfiles();
 function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));if(id==='discover')document.getElementById('n1').classList.add('active')}
 function render(){let p=people[i%people.length];photo.src=p.photo;personName.textContent=p.name;personDistance.textContent=p.distance;personBio.textContent=p.bio}
 function next(){i++;render()}
